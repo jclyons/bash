@@ -335,6 +335,7 @@ main(argc, argv)
 	  debug = 1;
 	  break;
 	case 'o':
+    fprintf(stderr, "received o as option\n");
 	  filename = optarg;
 	  break;
 	default:
@@ -347,6 +348,7 @@ main(argc, argv)
 
   if (filename)
     {
+      fprintf(stderr, "writing out to %s", filename);
       fp = fopen (filename, "w");
       if (fp == 0)
 	{
@@ -356,6 +358,7 @@ main(argc, argv)
     }
   else
     {
+
       filename = "stdout";
       fp = stdout;
     }

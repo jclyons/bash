@@ -816,7 +816,7 @@ sigprocmask(SIG_BLOCK, &set, (sigset_t *)NULL);
 siglongjmp(xx, 10);
 exit(1);
 #endif
-}], bash_cv_func_sigsetjmp=present, bash_cv_func_sigsetjmp=missing,
+}], bash_cv_func_sigsetjmp=missing, bash_cv_func_sigsetjmp=missing,
     [AC_MSG_WARN(cannot check for sigsetjmp/siglongjmp if cross-compiling -- defaulting to missing)
      bash_cv_func_sigsetjmp=missing]
 )])

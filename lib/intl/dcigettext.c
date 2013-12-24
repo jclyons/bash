@@ -160,7 +160,7 @@ char *getcwd ();
 static char *stpcpy PARAMS ((char *dest, const char *src));
 # endif
 # ifndef HAVE_MEMPCPY
-static void *mempcpy PARAMS ((void *dest, const void *src, size_t n));
+// static void *mempcpy PARAMS ((void *dest, const void *src, size_t n));
 # endif
 #endif
 
@@ -1201,14 +1201,14 @@ stpcpy (dest, src)
 #endif
 
 #if !_LIBC && !HAVE_MEMPCPY
-static void *
-mempcpy (dest, src, n)
-     void *dest;
-     const void *src;
-     size_t n;
-{
-  return (void *) ((char *) memcpy (dest, src, n) + n);
-}
+// static void *
+// mempcpy (dest, src, n)
+//      void *dest;
+//      const void *src;
+//      size_t n;
+// {
+//   return (void *) ((char *) memcpy (dest, src, n) + n);
+// }
 #endif
 
 

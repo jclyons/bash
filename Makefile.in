@@ -100,7 +100,7 @@ OBJEXT = @OBJEXT@
 VERSPROG = bashversion$(EXEEXT)
 VERSOBJ = bashversion.$(OBJEXT)
 
-Program = bash$(EXEEXT)
+Program = bash.js$(EXEEXT)
 Version = @BASHVERS@
 PatchLevel = `$(BUILD_DIR)/$(VERSPROG) -p`
 RELSTATUS = @RELSTATUS@
@@ -636,23 +636,23 @@ ${LIBINTL_H}:	${INTL_DEP}
 
 signames.o: $(SUPPORT_SRC)signames.c
 	$(RM) $@
-	$(CC) $(CCFLAGS) -c $(SUPPORT_SRC)signames.c
+	gcc $(CCFLAGS) -c $(SUPPORT_SRC)signames.c
 
 buildsignames.o:	$(SUPPORT_SRC)signames.c
 	$(RM) $@
-	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -o $@ -c $(SUPPORT_SRC)signames.c
+	gcc $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -o $@ -c $(SUPPORT_SRC)signames.c
 
 mksignames.o:	$(SUPPORT_SRC)mksignames.c
 	$(RM) $@
-	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -c $(SUPPORT_SRC)mksignames.c
+	gcc $(CCFLAGS_FOR_BUILD) -DBUILDTOOL -c $(SUPPORT_SRC)mksignames.c
 
 mksignames$(EXEEXT):	mksignames.o buildsignames.o
 	$(RM) $@
-	$(CC_FOR_BUILD) $(CCFLAGS_FOR_BUILD) -o $@ mksignames.o buildsignames.o ${LIBS_FOR_BUILD}
+	gcc $(CCFLAGS_FOR_BUILD) -o $@ mksignames.o buildsignames.o ${LIBS_FOR_BUILD}
 
 mksyntax$(EXEEXT):	${srcdir}/mksyntax.c config.h syntax.h ${BASHINCDIR}/chartypes.h
 	$(RM) $@
-	${CC_FOR_BUILD} ${CCFLAGS_FOR_BUILD} -o $@ ${srcdir}/mksyntax.c ${LIBS_FOR_BUILD}
+	gcc ${CCFLAGS_FOR_BUILD} -o $@ ${srcdir}/mksyntax.c ${LIBS_FOR_BUILD}
 
 # make a list of signals for the local system -- this is done when we're
 # *not* cross-compiling
@@ -666,7 +666,7 @@ signames.h: $(SIGNAMES_H)
 
 syntax.c:	mksyntax${EXEEXT} $(srcdir)/syntax.h 
 	$(RM) $@
-	./mksyntax$(EXEEXT) -o $@
+	node ./mksyntax.js$(EXEEXT) >> $@
 
 $(BUILTINS_LIBRARY): $(BUILTIN_DEFS) $(BUILTIN_C_SRC) config.h ${BASHINCDIR}/memalloc.h version.h
 	@(cd $(DEFDIR) && $(MAKE) $(MFLAGS) DEBUG=${DEBUG} libbuiltins.a ) || exit 1
